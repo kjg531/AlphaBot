@@ -8178,7 +8178,7 @@ function addExtension(extension, svr, consoleid, callback) {
 // Default game: rotates between stats
 function defaultGame(i, force) {
     // var games = [bot.servers.length + " server" + (bot.servers.length==1 ? "" : "s") + " connected", "serving " + bot.users.length + " users", "redditalpha.com", "v" + version, "Twitter @RedditAlpha", configs.hosting || "limited mode", "Reddit Alpha Clan Family"];
-    var games = ['Reddit Alpha Clan Family', 'Twitter @RedditAlpha'];
+    var games = ['Reddit Alpha', '@RedditAlpha'];
     if(configs.game=="default" || force) {
         if(i>=games.length) {
             i = 0;
