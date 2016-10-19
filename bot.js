@@ -822,13 +822,13 @@ app.post("/gallery", function(req, res) {
                         delete configs.gallery.queue[req.query.id];
                         break;
                     case "approve":
-                        bot.sendMessage(bot.users.get("id", extension.author), "An extension you submitted to the gallery (" + extension.name + ") has been approved! Check it out at http://extensions.awesomebot.xyz/#" + req.query.id);
+                        bot.sendMessage(bot.users.get("id", extension.author), "An extension you submitted to the gallery (" + extension.name + ") has been approved!");
                         configs.gallery.list[req.query.id] = extension;
                         delete configs.gallery.queue[req.query.id];
                         break;
                     case "feature":
                         if(!configs.gallery.list[req.query.id].featured) {
-                            bot.sendMessage(bot.users.get("id", extension.author), "Your extension " + extension.name + " on the gallery has been featured! Check it out at http://extensions.awesomebot.xyz/#" + req.query.id);
+                            bot.sendMessage(bot.users.get("id", extension.author), "Your extension " + extension.name + " on the gallery has been featured!");
                         }
                         configs.gallery.list[req.query.id].featured = !configs.gallery.list[req.query.id].featured;
                         break;
@@ -911,14 +911,14 @@ var commands = {
             bot.sendMessage(msg.channel, "https://discordapp.com/oauth2/authorize?&client_id=" + AuthDetails.client_id + "&scope=bot&permissions=470019135");
         }
     },
-    // About AwesomeBot!
+    // About
     "about": {
         usage: "[<\"bug\" or \"suggestion\">]",
         process: function(bot, msg, suffix) {
             if(["bug", "suggestion", "feature", "issue"].indexOf(suffix.toLowerCase())>-1) {
-                bot.sendMessage(msg.channel, "Please file your " + suffix.toLowerCase() + " here: https://github.com/BitQuote/AwesomeBot/issues/new");
+                bot.sendMessage(msg.channel, "Please file your " + suffix.toLowerCase() + " here: https://github.com/kjg531/AlphaBot/issues/new");
             } else {
-                bot.sendMessage(msg.channel, "Use `" + getPrefix(msg.channel.server) + "help` to list commands. Created by **@BitQuote**. Built on NodeJS with DiscordJS. Go to http://awesomebot.xyz/ to learn more, or join http://discord.awesomebot.xyz/");
+                bot.sendMessage(msg.channel, "Use `" + getPrefix(msg.channel.server) + "help` to list commands. Created by **@BitQuote**. Built on NodeJS with DiscordJS.");
             }
         }
     },
@@ -2620,7 +2620,7 @@ var commands = {
                             stats[msg.channel.server.id].trivia[msg.channel.id].set = tset;
                         }
                         logMsg(Date.now(), "INFO", msg.channel.server.id, msg.channel.id, "Trivia game started");
-                        bot.sendMessage(msg.channel, "Welcome to **AwesomeTrivia**! Here's your first question: " + triviaQ(msg.channel, stats[msg.channel.server.id].trivia[msg.channel.id].set) + "\nAnswer by tagging me like this: `" + getPrefix(msg.channel.server) + "trivia <answer>` or skip by doing this: `" + getPrefix(msg.channel.server) + "trivia next`\nGood Luck!");
+                        bot.sendMessage(msg.channel, "Welcome to **AlphaTrivia**! Here's your first question: " + triviaQ(msg.channel, stats[msg.channel.server.id].trivia[msg.channel.id].set) + "\nAnswer by tagging me like this: `" + getPrefix(msg.channel.server) + "trivia <answer>` or skip by doing this: `" + getPrefix(msg.channel.server) + "trivia next`\nGood Luck!");
                         stats[msg.channel.server.id].trivia[msg.channel.id].possible++;
                         if(!stats[msg.channel.server.id].commands.trivia) {
                             stats[msg.channel.server.id].commands.trivia = 0;
@@ -2681,7 +2681,7 @@ var commands = {
                         if(checkAnswer() && triviaOn) {
                             logMsg(Date.now(), "INFO", msg.channel.server.id, msg.channel.id, "Correct trivia game answer by " + msg.author.username);
 
-                            // Award AwesomePoints to author
+                            // Award AlphaPoints to author
                             if(!profileData[msg.author.id]) {
                                 profileData[msg.author.id] = {
                                     points: 0
@@ -3510,7 +3510,7 @@ var commands = {
                 });
                 var info = "";
                 for(var i=memberPoints.length-1; i>=0; i--) {
-                    var tmpinfo = "**@" + memberPoints[i][0] + "**: " + memberPoints[i][1] + " AwesomePoint" + (memberPoints[i][1]==1 ? "" : "s") + "\n";
+                    var tmpinfo = "**@" + memberPoints[i][0] + "**: " + memberPoints[i][1] + " AlphaPoint" + (memberPoints[i][1]==1 ? "" : "s") + "\n";
                     if((tmpinfo.length + info.length)>2000) {
                         break;
                     } else {
@@ -3571,7 +3571,7 @@ var commands = {
                         points: 0
                     }
                 }
-                bot.sendMessage(msg.channel, "**@" + getName(msg.channel.server, usr) + "** has `" + profileData[usr.id].points + "` AwesomePoint" + (profileData[usr.id].points==1 ? "" : "s"));
+                bot.sendMessage(msg.channel, "**@" + getName(msg.channel.server, usr) + "** has `" + profileData[usr.id].points + "` AlphaPoint" + (profileData[usr.id].points==1 ? "" : "s"));
             } else {
                 logMsg(Date.now(), "WARN", msg.channel.server.id, msg.channel.id, "Requested member does not exist so profile cannot be shown");
                 bot.sendMessage(msg.channel, "That user doesn't exist :confused:");
@@ -4257,7 +4257,7 @@ var pmcommands = {
     // Get help with the bot
     "help": {
         process: function(bot, msg) {
-            bot.sendMessage(msg.author, "Use `@" + bot.user.username + " help` in the public chat to get help, or head over to the wiki: http://wiki.awesomebot.xyz/");
+            bot.sendMessage(msg.author, "Use `@" + bot.user.username + " help` in the public chat to get help.");
         }
     },
     // Gets OAuth URL
@@ -4596,7 +4596,7 @@ function messageHandler(msg) {
                 logMsg(Date.now(), "INFO", msg.channel.server.id, msg.channel.id, "Adding message from " + msg.author.username + " to their spam list");
                 spams[msg.channel.server.id][msg.author.id].push(msg.content);
 
-                // Minus AwesomePoints!
+                // Minus AlphaPoints!
                 if(!profileData[msg.author.id]) {
                     profileData[msg.author.id] = {
                         points: 0
@@ -4701,7 +4701,7 @@ function messageHandler(msg) {
                         }
                         if(profileData[msg.author.id].points<10) {
                             logMsg(Date.now(), "WARN", msg.channel.server.id, msg.channel.id, msg.author.username + " does not have enough points to gild " + usr.username);
-                            bot.sendMessage(msg.channel, msg.author + " You don't have enough AwesomePoints to gild " + usr);
+                            bot.sendMessage(msg.channel, msg.author + " You don't have enough AlphaPoints to gild " + usr);
                             return;
                         }
                         voted = "gilded";
@@ -4959,8 +4959,8 @@ function readyServer(svr) {
 function newServer(svr) {
     logMsg(Date.now(), "INFO", "General", null, "Server " + svr.name + " joined");
     defaultConfig(svr);
-    adminMsg(false, svr, {username: bot.user.username}, " (me) has been added to " + svr.name + ". You're one of my admins. You can manage me in this server by PMing me `config " + svr.name + "`. Check out http://awesomebot.xyz/ to learn more.");
-    bot.sendMessage(svr.defaultChannel, "Hi, I'm " + (svr.detailsOfUser(bot.user).nick || bot.user.username) + "! " + (bot.servers.length % 100==0 ? ("*Wow, you're server #" + bot.servers.length + " for me!* ") : "") + "Use `" + getPrefix(svr) + "help` to learn more or check out http://awesomebot.xyz/");
+    adminMsg(false, svr, {username: bot.user.username}, " (me) has been added to " + svr.name + ". You're one of my admins. You can manage me in this server by PMing me `config " + svr.name + "`.");
+    bot.sendMessage(svr.defaultChannel, "Hi, I'm " + (svr.detailsOfUser(bot.user).nick || bot.user.username) + "! " + (bot.servers.length % 100==0 ? ("*Wow, you're server #" + bot.servers.length + " for me!* ") : "") + "Use `" + getPrefix(svr) + "help` to learn more.");
 }
 
 function postCarbon() {
@@ -8177,7 +8177,8 @@ function addExtension(extension, svr, consoleid, callback) {
 
 // Default game: rotates between stats
 function defaultGame(i, force) {
-    var games = [bot.servers.length + " server" + (bot.servers.length==1 ? "" : "s") + " connected", "serving " + bot.users.length + " users", "awesomebot.xyz", "v" + version, "by @BitQuote", configs.hosting || "limited mode", "the best Discord bot!"];
+    // var games = [bot.servers.length + " server" + (bot.servers.length==1 ? "" : "s") + " connected", "serving " + bot.users.length + " users", "redditalpha.com", "v" + version, "Twitter @RedditAlpha", configs.hosting || "limited mode", "Reddit Alpha Clan Family"];
+    var games = ['Reddit', 'Alpha', 'Clan', 'Family']
     if(configs.game=="default" || force) {
         if(i>=games.length) {
             i = 0;
@@ -8186,7 +8187,7 @@ function defaultGame(i, force) {
             bot.setStatus("online", games[i]);
             setTimeout(function() {
                 defaultGame(++i);
-            }, 30000);
+            }, 2000);
         } catch(err) {
             ;
         }
@@ -9353,10 +9354,10 @@ function getHelp(svr, usr) {
     help.push("The following commands are also available via PM:```" + info.sort().join("") + "```");
 
     if(configs.servers[svr.id].points) {
-        help.push("\nFinally: *AwesomePoints*, a karma system for Discord. You can upvote someone with `@user <\"^\", \"+1\", or \"up\">`, and give 10 of your own points with `@user gild`. You'll lose points for doing bad things, and get a reward for being the most active user at the end of the week.");
+        help.push("\nFinally: *AlphaPoints*, a karma system for Discord. You can upvote someone with `@user <\"^\", \"+1\", or \"up\">`, and give 10 of your own points with `@user gild`. You'll lose points for doing bad things, and get a reward for being the most active user at the end of the week.");
     }
 
-    help.push("\nOn top of all this, you can talk to me about anything privately or in the main chat (by tagging me). Learn more on my wiki: http://wiki.awesomebot.xyz/ \n\nVersion " + version + " by **@BitQuote**, http://awesomebot.xyz/");
+    help.push("\nOn top of all this, you can talk to me about anything privately or in the main chat (by tagging me).");
     return help;
 }
 
@@ -9532,7 +9533,7 @@ function checkVersion() {
                         send += response.body[i][1];
                     }
                 }
-                send += "\nLearn more at http://awesome.awesomebot.xyz/";
+                send += "\n";
 
                 if(configs.maintainer && configs.maintainer!="") {
                     var usr = bot.users.get("id", configs.maintainer);
