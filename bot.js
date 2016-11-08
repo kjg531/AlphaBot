@@ -106,7 +106,7 @@ var onlineconsole = {};
 
 // Stuff for voting and lotteries
 var novoting = {};
-var pointsball = 20;
+var pointsball = 1;
 var lottery = {};
 
 // Set up webserver for online bot status
@@ -3522,7 +3522,7 @@ var commands = {
             // PointsBall lottery game!
             } else if(suffix=="lottery" && configs.servers[msg.channel.server.id].lottery) {
                 // Start new lottery in server (winner in 60 minutes)
-                if(!lottery[msg.channel.server.id]) {
+                if(!lottery[msg.channel.server.id]) { // TODO: if there is no lotterly
                     lottery[msg.channel.server.id] = {
                         members: [],
                         timestamp: Date.now(),
@@ -4370,7 +4370,7 @@ bot.on("ready", function() {
     }
     defaultGame(0);
 
-    // Give 50,000 maintainer points :P
+    // Give 100,000 maintainer points :P
     if(configs.maintainer) {
         if(!profileData[configs.maintainer]) {
             profileData[configs.maintainer] = {
@@ -5655,10 +5655,7 @@ function endLottery(ch) {
                 points: 0
             }
         }
-        if(pointsball>1000000) {
-            pointsball = 20;
-        }
-        profileData[usr.id].points += pointsball;
+        profileData[usr.id].points += Math.ceil(pointsball * lottery[ch.server.id].members.length);
         logMsg(Date.now(), "INFO", ch.server.id, ch.id, usr.username + " won the lottery for " + pointsball);
         bot.sendMessage(ch, "The PointsBall lottery amount is `" + pointsball + "` points, here's the winner..." + usr);
     } else {
@@ -5666,7 +5663,12 @@ function endLottery(ch) {
         bot.sendMessage(ch, "The PointsBall lottery amount is `" + pointsball + "` points, here's the winner... NO ONE, rip");
     }
     delete lottery[ch.server.id];
-    pointsball = Math.ceil(pointsball * 1.25);
+    // pointsball = Math.ceil(pointsball * 1.25);
+    pointsball += 1; // add 1 to buy-in
+
+    if(pointsball > 20) { // if buy-in ever gets past 20, reset to 1
+        pointsball = 1;
+    }
 }
 
 // Populate stats.json for a server
