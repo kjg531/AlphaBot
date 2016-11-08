@@ -4680,7 +4680,7 @@ function messageHandler(msg) {
             var tagstring = msg.content.substring(msg.content.indexOf(" "));
             if(usr && !usr.bot) {
                 if([msg.author.id, bot.user.id].indexOf(usr.id)==-1 && configs.servers[msg.channel.server.id].points && !novoting[msg.author.id] && msg.channel.server.members.length>2) {
-                    var votestrings = [" +!", " +1", " up", " ^", " thx", " ty", " thanks", " thank you", " god bless"];
+                    var votestrings = [" +!", " +1", " up", " ^", " thx", " ty", " thanks", " thank you", " god bless", ":rr:"];
                     var voted;
                     for(var i=0; i<votestrings.length; i++) {
                         if(tagstring.indexOf(votestrings[i])==0) {
