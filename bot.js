@@ -3539,7 +3539,8 @@ var commands = {
                         points: 0
                     }
                 }
-                var cost = pointsball<500 ? Math.ceil(pointsball/7) : Math.ceil(pointsball/10)
+                // var cost = pointsball<500 ? Math.ceil(pointsball/7) : Math.ceil(pointsball/10);
+                var cost = pointsball;
                 if(profileData[msg.author.id].points>=cost) {
                     profileData[msg.author.id].points -= cost;
                     lottery[msg.channel.server.id].members.push(msg.author.id);
@@ -5647,6 +5648,7 @@ function endGiveaway(author) {
 
 // End a lottery and pick a winner
 function endLottery(ch) {
+    var pool = Math.ceil(pointsball * lottery[ch.server.id].members.length);
     var usrid = lottery[ch.server.id].members[getRandomInt(0, lottery[ch.server.id].members.length-1)];
     var usr = ch.server.members.get("id", usrid);
     if(usr && !lottery[ch.server.id].members.allValuesSame() && configs.servers[ch.server.id].blocked.indexOf(usrid)==-1) {
@@ -5655,12 +5657,12 @@ function endLottery(ch) {
                 points: 0
             }
         }
-        profileData[usr.id].points += Math.ceil(pointsball * lottery[ch.server.id].members.length);
-        logMsg(Date.now(), "INFO", ch.server.id, ch.id, usr.username + " won the lottery for " + pointsball);
-        bot.sendMessage(ch, "The PointsBall lottery amount is `" + pointsball + "` points, here's the winner..." + usr);
+        profileData[usr.id].points += pool;
+        logMsg(Date.now(), "INFO", ch.server.id, ch.id, usr.username + " won the lottery for " + pool);
+        bot.sendMessage(ch, "The PointsBall lottery amount is `" + pool + "` points, here's the winner..." + usr);
     } else {
-        logMsg(Date.now(), "WARN", ch.server.id, ch.id, "No winner of lottery for " + pointsball);
-        bot.sendMessage(ch, "The PointsBall lottery amount is `" + pointsball + "` points, here's the winner... NO ONE, rip");
+        logMsg(Date.now(), "WARN", ch.server.id, ch.id, "No winner of lottery for " + pool);
+        bot.sendMessage(ch, "The PointsBall lottery amount is `" + pool + "` points, here's the winner... NO ONE, rip");
     }
     delete lottery[ch.server.id];
     // pointsball = Math.ceil(pointsball * 1.25);
