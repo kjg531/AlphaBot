@@ -4342,7 +4342,7 @@ bot.on("ready", function() {
         clearMessageCounter();
         clearLogCounter();
         clearStatCounter();
-        setInterval(saveCSP, 900000);
+        setInterval(saveCSP, 60000);
 
         // Run timer extensions
         domain.run(runTimerExtensions);
@@ -5260,7 +5260,7 @@ function checkRank(usr, svr, override) {
                                     points: 0
                                 }
                             }
-                            profileData[usr.id].points += 100;
+                            // profileData[usr.id].points += 100;
                         }
                         if(configs.servers[svr.id].rankslist[i].role && svr.roles.get("id", configs.servers[svr.id].rankslist[i].role)) {
                             bot.addMemberToRole(usr, svr.roles.get("id", configs.servers[svr.id].rankslist[i].role), function(err) {
