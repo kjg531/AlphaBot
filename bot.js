@@ -2684,7 +2684,7 @@ var commands = {
                             // Award AlphaPoints to author
                             if(!profileData[msg.author.id]) {
                                 profileData[msg.author.id] = {
-                                    points: 0
+                                    points: 100
                                 };
                             }
                             profileData[msg.author.id].points += 5;
@@ -3536,7 +3536,7 @@ var commands = {
                 // Buy a lottery ticket
                 if(!profileData[msg.author.id]) {
                     profileData[msg.author.id] = {
-                        points: 0
+                        points: 100
                     }
                 }
                 // var cost = pointsball<500 ? Math.ceil(pointsball/7) : Math.ceil(pointsball/10);
@@ -3569,7 +3569,7 @@ var commands = {
             if(usr) {
                 if(!profileData[usr.id]) {
                     profileData[usr.id] = {
-                        points: 0
+                        points: 100
                     }
                 }
                 bot.sendMessage(msg.channel, "**@" + getName(msg.channel.server, usr) + "** has `" + profileData[usr.id].points + "` AlphaPoint" + (profileData[usr.id].points==1 ? "" : "s"));
@@ -3899,7 +3899,7 @@ var pmcommands = {
                 } else {
                     if(!profileData[msg.author.id]) {
                         profileData[msg.author.id] = {
-                            points: 0
+                            points: 100
                         };
                     }
                     info = "Alright, got it! PM me `profile " + key + "|.` to delete that.";
@@ -4081,7 +4081,7 @@ var pmcommands = {
                 if(svr) {
                     if(!profileData[msg.author.id]) {
                         profileData[msg.author.id] = {
-                            points: 0
+                            points: 100
                         };
                     }
                     if(!profileData[msg.author.id].svrnicks) {
@@ -4286,7 +4286,7 @@ var pmcommands = {
             } else {
                 if(!profileData[msg.author.id]) {
                     profileData[msg.author.id] = {
-                        points: 0
+                        points: 100
                     };
                 }
                 profileData[msg.author.id].AFK = suffix;
@@ -4600,7 +4600,7 @@ function messageHandler(msg) {
                 // Minus AlphaPoints!
                 if(!profileData[msg.author.id]) {
                     profileData[msg.author.id] = {
-                        points: 0
+                        points: 100
                     }
                 }
                 var negative;
@@ -4687,7 +4687,7 @@ function messageHandler(msg) {
                             voted = "upvoted";
                             if(!profileData[usr.id]) {
                                 profileData[usr.id] = {
-                                    points: 0
+                                    points: 100
                                 };
                             }
                             profileData[usr.id].points++;
@@ -4697,7 +4697,7 @@ function messageHandler(msg) {
                     if(tagstring.indexOf(" gild")==0) {
                         if(!profileData[msg.author.id]) {
                             profileData[msg.author.id] = {
-                                points: 0
+                                points: 100
                             }
                         }
                         if(profileData[msg.author.id].points<10) {
@@ -4709,7 +4709,7 @@ function messageHandler(msg) {
                         profileData[msg.author.id].points -= 10;
                         if(!profileData[usr.id]) {
                             profileData[usr.id] = {
-                                points: 0
+                                points: 100
                             };
                         }
                         profileData[usr.id].points += 10;
@@ -4744,7 +4744,7 @@ function messageHandler(msg) {
                     if([msg.author.id, bot.user.id].indexOf(messages[0].author.id)==-1) {
                         if(!profileData[messages[0].author.id]) {
                             profileData[messages[0].author.id] = {
-                                points: 0
+                                points: 100
                             };
                         }
                         profileData[messages[0].author.id].points++;
@@ -5257,7 +5257,7 @@ function checkRank(usr, svr, override) {
                         if(configs.servers[svr.id].points && svr.members.length>2) {
                             if(!profileData[usr.id]) {
                                 profileData[usr.id] = {
-                                    points: 0
+                                    points: 100
                                 }
                             }
                             // profileData[usr.id].points += 100;
@@ -5472,7 +5472,7 @@ bot.on("presence", function(oldusr, newusr) {
 
                     if(!profileData[oldusr.id]) {
                         profileData[oldusr.id] = {
-                            points: 0
+                            points: 100
                         }
                     }
                     if(!profileData[oldusr.id]["Past Names"]) {
@@ -5654,7 +5654,7 @@ function endLottery(ch) {
     if(usr && !lottery[ch.server.id].members.allValuesSame() && configs.servers[ch.server.id].blocked.indexOf(usrid)==-1) {
         if(!profileData[usr.id]) {
             profileData[usr.id] = {
-                points: 0
+                points: 100
             }
         }
         profileData[usr.id].points += pool;
@@ -5965,7 +5965,7 @@ function clearServerStats(svrid) {
                 logMsg(Date.now(), "INFO", svr.id, null, usr.username + " won " + amount + " in the weekly activity contest");
                 if(!profileData[usr.id]) {
                     profileData[usr.id] = {
-                        points: 0
+                        points: 100
                     }
                 }
                 profileData[usr.id].points += amount;
@@ -6416,7 +6416,7 @@ function getExtensionUser(usr, svr, testing) {
                 } else {
                     if(!profileData[usr.id]) {
                         profileData[usr.id] = {
-                            points: 0
+                            points: 100
                         };
                     }
                     profileData[usr.id][key] = value;
@@ -6898,7 +6898,7 @@ function parseMaintainerConfig(delta, consoleid, callback) {
                 if(usr) {
                     if(!profileData[usr.id]) {
                         profileData[usr.id] = {
-                            points: 0
+                            points: 100
                         }
                     }
                     profileData[usr.id].points = parseInt(delta[key][1]);
@@ -8532,7 +8532,7 @@ function handleFiltered(msg, type) {
     if(configs.servers[msg.channel.server.id].points) {
         if(!profileData[msg.author.id]) {
             profileData[msg.author.id] = {
-                points: 0
+                points: 100
             }
         }
         profileData[msg.author.id].points -= action ? 200 : 100;
@@ -8931,7 +8931,7 @@ function getProfile(usr, svr) {
     }
     if(!profileData[usr.id]) {
         profileData[usr.id] = {
-            points: 0
+            points: 100
         };
     }
     for(var field in profileData[usr.id]) {
