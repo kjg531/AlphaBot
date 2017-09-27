@@ -13,7 +13,7 @@
     "underscore": "1.8.x",
     "winston": "1.0.x",
     "sinon": "1.14.x",
-    "nock": "1.7.x",
+    "nock": "3.1.0",
     "youtube-node": "1.2.x",
     "google": "1.1.x",
     "google-images": "0.1.x",
